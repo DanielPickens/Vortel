@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vortel
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: vortel
+  name: vortel
+  namespace: vortel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vortel
+  template:
+    metadata:
+      labels:
+        app: vortel
+    spec:
+      containers:
+      - image: danielpickens/vortel:latest
+        name: vortel
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vortel
+  labels:
+    app: vortel
+  namespace: vortel
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+    targetPort: 5000
+  selector:
+    app: vortel
