@@ -10,9 +10,9 @@ Vortel defines a simple REST API for an imaginary Machine Learning(ML) model tha
  Vortel is designed to run MLOps on a parallel distributed system, optimized for scalability and DevOps workflows using the API client.
  Vortel is Cloud native and DevOps friendly. Via its Kubernetes-native workflow, specifically the [VortelDeployment CRD](https://docs Vortel.io/en/latest/concepts/VortelDeployment_crd.html) (Custom Resource Definition), DevOps teams can easily fit MLOPS powered services into their existing workflow.
 
-## Containerising a Simple ML Model Scoring Service using Flask and Docker
+## Containerising a Simple ML Model Prediction Service using Flask and Docker
 
-We start by demonstrating how to achieve this basic competence using the simple Python ML model scoring REST API contained in the `api.py` module, together with the `Dockerfile`, both within the `Vortel` directory, whose core contents are as follows,
+The REST api client handles prediction modeling using the simple Python ML model prediction REST API contained in the `api.py` module, together with the `Dockerfile`, both within the `Vortel` directory, whose core contents are as follows,
 
 ```bash
 Vortel/
@@ -88,7 +88,7 @@ To test that the image can be used to create a Docker container that functions a
 docker run --rm --name test-api -p 5000:5000 -d danielpickens/Vortel
 ```
 
-Where we have mapped port 5000 from the Docker container - i.e. the port our ML model scoring service is listening to - to port 5000 on our host machine (localhost). Then check that the container is listed as running using,
+Where we have mapped port 5000 from the Docker container - i.e. the port our ML model predicting service is listening to - to port 5000 on our host machine (localhost). Then check that the container is listed as running using,
 
 ```bash
 docker ps
@@ -165,7 +165,7 @@ Open the URL printed above from your browser to finish admin account setup.
 
  Building this custom image and asking the Docker daemon to run it (remember that a running image is a 'container'), will expose our RESTful ML model prediction service on port 5000 as if it were running on a dedicated virtual machine. Refer to the official [Docker documentation](https://docs.docker.com/get-started/) for a more comprehensive discussion of these core concepts.
 
-### Building a Docker Image for the ML Scoring Service
+### Building a Docker Image for the ML Prediction Service
 
 We assume that [Docker is running locally](https://www.docker.com) (both Docker client and daemon), that the client is logged into an account on [DockerHub](https://hub.docker.com) and that there is a terminal open in the this project's root directory. To build the image described in the `Dockerfile` run,
 
@@ -197,7 +197,7 @@ python api.py
 Push your newly built ML Model to Vortel:
 
 ```bash
-MLOPS/apptainer/slurm push iris_classifier:latest
+danielpickens/vortel push iris_classifier:latest
 ```
 
 
